@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Mouse Care Massage Art Cuts</title>
+
+
+	<style type="text/css">
+
+
+					* {
+
+
+								cursor: pointer;
+					}
+		
+
+					body {
+
+							background-color: #101010;
+							width: 97.5vw;
+
+						/*
+							height: 100vh;
+						*/
+							cursor: pointer;
+
+							overflow-x: clip;
+					}
+
+
+
+					div {
+
+							position: absolute;
+
+					}
+
+
+					audio {
+
+
+							display: none;
+					}
+
+
+					#text {
+
+
+								    display: block;
+								    position: fixed;
+								    top: 0.2vh;
+								    left: 1vw;
+								    width: auto;
+								    max-width: 30vw;
+								    height: auto;
+								    color: #16161673;
+								    font-family: monospace;
+								    z-index: 10;
+								    overflow: clip;
+					}
+
+
+					#text:hover {
+
+
+									color: #ffffff61;
+									cursor: cell;
+					}
+
+
+					#canvas {
+
+
+							width: 100%;
+							height: auto;
+							min-height: 100vh;
+							outline: none;
+							overflow-x: hidden;
+							overflow-y: hidden;
+
+							color: #000000;
+							font-size: 1px;
+					}
+
+
+					#canvas > div {
+
+
+								/*		display: none;   */
+					}
+
+					#dots {
+
+
+							position: absolute;
+					}
+
+
+	</style>
+
+
+</head>
+
+<body onmouseover="document.getElementById('canvas').scrollIntoView();" onkeyup="document.getElementById('canvas').scrollIntoView();" onmousemove="document.getElementById('canvas').scrollIntoView();" onload="document.getElementById('canvas').scrollIntoView();">
+
+<div contenteditable id="canvas" onkeyup="freezeDots(event);" onmousemove="audio.play(), dotMandala(event);">
+
+
+
+</div>
+
+
+
+<audio id="audio" controls style="display:none">
+  <source src="1.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+</audio>
+
+
+<div onclick="navigator.clipboard.writeText(document.getElementById(this.id).innerHTML);" id="text"></div>
+
+
+<script type="text/javascript">
+	
+
+			let colors;
+
+			let randomTop;
+
+			
+
+
+			let randomLeft;
+
+			let randomRotate;
+
+			let randomWidth;
+
+			let randomRadius;
+
+			let randomHeight;
+
+			let border = ["border-bottom", "border-top", "border-left", "border-right"];
+			let borderRandom;
+			let borderSide;
+
+
+
+
+			let borderType = ["dashed", "dotted", "solid"];
+
+			let borderThickness;
+
+			let borderRadius = ["0%", "60%", "100%", "150%", "200%", "300%", "400%", "500%"];
+
+			let r;
+
+			let g;
+
+			let b;
+
+			let r1;
+
+			let g1;
+
+			let b1;
+
+			let shadow;
+
+			let paint;
+
+			let text = '';
+
+			let keyValue;
+
+			let currentMax=97.5;
+			let currentMin=0.5;
+
+			let topArray=[];
+
+			let ink = 0;
+
+			let dots = "";
+
+			let canvas = document.getElementById('canvas');
+
+			let audio = document.getElementById('audio');
+
+			let key;
+
+			let space=0;
+
+
+
+			function startAgain(e) {
+
+
+						console.log("start");
+
+						document.getElementById('canvas').focus();
+
+
+ 						key = e.keyCode || e.which;
+						
+
+						if (key==27) {
+
+											canvas.innerHTML='';
+
+						}
+
+						else {
+
+
+						canvas.style.pointerEvents='all';
+
+
+						}
+
+
+
+
+
+
+			}
+
+
+
+			function freezeDots(e) {
+
+
+						document.getElementById('dots').innerHTML='';
+
+
+ 						key = e.keyCode || e.which;
+
+
+						if(key!=27 && space==0) {						
+
+									canvas.style.pointerEvents="none";
+
+									console.log('frozen');
+
+									space=1;
+
+						}
+
+						else if(key!=27 && space==1) {
+
+															document.getElementById('canvas').focus();
+
+
+															console.log('unfreeze');
+
+
+															canvas.style.pointerEvents="all";
+
+															space=0;
+
+
+					}
+
+					else if(key==27) {
+
+
+											canvas.innerHTML='';
+
+															canvas.style.pointerEvents="all";
+
+
+					}
+
+
+					else {
+
+															canvas.style.pointerEvents="all";
+
+
+					}
+
+			}
+
+
+
+
+			function dotMandala(e){
+
+						document.getElementById('canvas').focus();
+
+
+
+
+							let x = e.clientX+"px";
+							let y = e.clientY+"px";
+
+
+							let big = Math.floor((Math.random() * 10) + 1)+"px";
+
+
+							r = Math.floor((Math.random() * 255) + 0);
+							g = Math.floor((Math.random() * 255) + 0);
+							b = Math.floor((Math.random() * 255) + 0);
+
+							colors = 'rgb(' + r + ',' + g + ',' + b + ')';
+
+
+							dots='<div style="background-color: '+colors+'; border-radius: 100px; width: '+big+'; height: '+big+'; top: '+y+'; left: '+x+';" id="dots"></div>';
+
+							canvas.innerHTML+=dots;
+
+
+
+
+
+
+			}
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
+
+<!--
+
+		SCRIPTING
+
+
+	as soon as the cuts function is called a random div cut line is added as innerhtml to body.
+
+	user can choose "thichness" of lines prior to drawing attempt
+	it can also be modified as stitiching on a plain fabric with color stitches
+	also you can do with muse click with drawing staeting from where the mouse click positio is
+
+
+	create a button functionality to hide and show the drawing--blindfolded drawings.
+	
+-->
